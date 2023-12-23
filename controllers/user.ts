@@ -3,7 +3,7 @@ import { UserModel } from '../models'
 import bcrypt from 'bcrypt'
 import Joi from 'joi'
 
-class User {
+class UserController {
     static async hashPassword (password: String) {
         const salt = await bcrypt.genSalt(10);
         const hashPassword = await bcrypt.hash(password, salt);
@@ -24,7 +24,7 @@ class User {
         if (error) res.status(400).json({"error": error});
 
         const { firstName, lastName, email, username, password} = value;
-        const hashedPassword = await User.hashPassword(password);
+        const hashedPassword = await UserController.hashPassword(password);
         const user = new UserModel({
             firstName,
             lastName,
@@ -42,4 +42,11 @@ class User {
 
         res.status(200).json(user);
     }
+
+    static async deleteUser () {
+
+    }
 }
+
+export default UserController;
+
