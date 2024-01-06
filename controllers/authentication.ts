@@ -21,9 +21,6 @@ class AuthController {
 
         res.json({user});
 
-
-        
-
     }
 
     static async logout() {

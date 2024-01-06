@@ -4,17 +4,21 @@ import bcrypt from 'bcrypt'
 import Joi from 'joi'
 
 class UserController {
-    static async hashPassword (password: String) {
+    static async hello(req: Request, res: Response) {
+        return res.status(200).json("Hello World, Welcome to my API");
+     }
+
+    static async hashPassword (password: string) {
         const salt = await bcrypt.genSalt(10);
         const hashPassword = await bcrypt.hash(password, salt);
         return hashPassword;
     }
 
     static async createUser( req: Request, res:Response) {
+        console.log(req.body);
         const userSchema = Joi.object({
             firstName: Joi.string().required(),
             lastName: Joi.string().required(),
-            username: Joi.string().required,
             email: Joi.string().required().email(),
             password: Joi.string().required()
         })
@@ -28,24 +32,19 @@ class UserController {
         const user = new UserModel({
             firstName,
             lastName,
-            username,
             email,
             password: hashedPassword
         })
 
         user.save()
         .then(()=> {
-            console.log(`${user.username}`)
+            console.log(`${user.firstName}`)
+            res.status(200).json(user);
         }).catch((error) => {
             console.error(error);
         })
-
-        res.status(200).json(user);
     }
 
-    static async deleteUser () {
-
-    }
 }
 
 export default UserController;
