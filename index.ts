@@ -2,7 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 import mongooseClient from "./utils/mongoose";
 import redisClient from "./utils/redis";
-import { userRouter, helloRouter } from "./routes";
+import { userRouter, helloRouter, authRouter } from "./routes";
 
 const PORT = 5000;
 const app = express();
@@ -14,8 +14,8 @@ app.use(bodyParser.json());
 //endpoints
 
 app.use("/api", helloRouter);
-
 app.use("/api", userRouter);
+app.use("/api", authRouter);
 
 app.get("/hello", (req: Request, res: Response) => {
     console.log("dog");
