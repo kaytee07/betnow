@@ -29,24 +29,23 @@ class AuthController {
             if (!passwordMatch) {
                 return res.status(401).json({ error: 'Invalid credentials' });
             }
-            console.log(password);
-            console.log(process.env)
             const token = await jwt.sign(
             { userId: user._id, email: user.email}, 
             process.env.JWT_TOKEN, { expiresIn: '1h'}
             );
 
+            res.cookie("token", token, { httpOnly: true});
+
             return res.status(200).json({"success": user, "token": token});
         } catch (err) {
             return res.status(401).json({"Error": err});
-        }
-
-        
+        } 
 
     }
 
-    static async logout() {
-
+    static async logout(req: Request, res:Response) {
+        res.clearCookie('token', {httpOnly: true});
+        res.status(200).json({"message": "logout successfully"});
     }
 
 }
