@@ -35,7 +35,7 @@ class AuthController {
             );
 
             res.cookie("token", token, { httpOnly: true});
-
+            
             return res.status(200).json({"success": user, "token": token});
         } catch (err) {
             return res.status(401).json({"Error": err});
@@ -45,6 +45,7 @@ class AuthController {
 
     static async logout(req: Request, res:Response) {
         res.clearCookie('token', {httpOnly: true});
+        console.log(req.cookies)
         res.status(200).json({"message": "logout successfully"});
     }
 

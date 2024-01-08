@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 import mongooseClient from "./utils/mongoose";
 import redisClient from "./utils/redis";
 import { userRouter, helloRouter, authRouter } from "./routes";
+const cookieParser = require('cookie-parser');
 
 const PORT = 5000;
 const app = express();
@@ -10,6 +11,7 @@ const app = express();
 //middlewares
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use(cookieParser());
 
 //endpoints
 
