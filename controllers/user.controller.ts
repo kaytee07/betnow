@@ -49,7 +49,7 @@ class UserController {
         user.save()
         .then(()=> {
             console.log(`${user.firstName}`)
-            res.status(200).json(user);
+            return res.status(200).json({firstName, lastName, email});
         }).catch((error) => {
             console.error(error);
         })

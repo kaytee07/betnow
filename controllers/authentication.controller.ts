@@ -3,7 +3,7 @@ import { UserModel } from "../models";
 import bcrypt from "bcrypt";
 import { Request, Response } from "express";
 require('dotenv').config();
-const jwt = require('jsonwebtoken');
+import jwt from 'jsonwebtoken';
 
 
 class AuthController {
@@ -23,20 +23,25 @@ class AuthController {
         try {
             let user = await UserModel.findOne({"email": email});
             if (!user) {
-                return res.status(400).json({'error': 'Email cannot be found'});
+                return res.status(400).json({message: 'Email cannot be found'});
             }
             const passwordMatch = await bcrypt.compare(password, user.password);
             if (!passwordMatch) {
-                return res.status(401).json({ error: 'Invalid credentials' });
+                return res.status(401).json({ message: 'Invalid credentials' });
             }
-            const token = await jwt.sign(
-            { userId: user._id, email: user.email}, 
-            process.env.JWT_TOKEN, { expiresIn: '1h'}
-            );
 
-            res.cookie("token", token, { httpOnly: true});
             
-            return res.status(200).json({"success": user, "token": token});
+
+            if (process.env.JWT_TOKEN) {
+                let token = jwt.sign({ userId: user._id, email: user.email}, process.env.JWT_TOKEN, { expiresIn: '1h'});
+                res.cookie("token", token, { httpOnly: true});
+                return res.status(200).json({"success": email, "token": token});
+            } else {
+                console.error('JWT_TOKEN is not defined in environment variables.');
+            }
+            
+
+            
         } catch (err) {
             return res.status(401).json({"Error": err});
         } 

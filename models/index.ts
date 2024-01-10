@@ -1,4 +1,4 @@
-import ticketModel from "./ticket.model";
+import TicketModel from "./ticket.model";
 import UserModel from "./user.model";
 
-export {ticketModel, UserModel};
+export {TicketModel, UserModel};

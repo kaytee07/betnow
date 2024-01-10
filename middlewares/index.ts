@@ -1,3 +1,4 @@
-import requireAuth from "./authorization.middleware";
+// import requireAuth from "./authorization.middleware";
+import {cloudinary} from "./cloudinary.middleware";
 
-export { requireAuth };
+export { cloudinary};
