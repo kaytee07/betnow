@@ -39,10 +39,9 @@ class TicketController {
     }
 
     static async getFiveOdds(req: Request, res: Response) {
-        const {fiveOdds} = req.body;
         try {
             const getAllodds = await TicketModel.find({ oddsType: {
-                name: fiveOdds
+                name: "five odds"
             }});
             if (getAllodds.length < 1) return res.status(400).json({error: "there are no images in five odds"});
             res.status(200).json({"success": getAllodds});
@@ -52,10 +51,9 @@ class TicketController {
     }
 
     static async getTwoOdds(req: Request, res:Response) {
-        const {twoOdds} = req.body;
         try {
             const getAllodds = await TicketModel.find({ oddsType: {
-                name: twoOdds
+                name: "two odds"
             }});
             if (getAllodds.length < 1) return res.status(400).json({error: "there are no images in two odds"});
             res.status(200).json({"success": getAllodds});
@@ -65,10 +63,9 @@ class TicketController {
     }
 
     static async getSevenOdds(req: Request, res: Response) {
-        const {sevenOdds} = req.body;
         try {
             const getAllodds = await TicketModel.find({ oddsType: {
-                name: sevenOdds
+                name: "seven odds"
             }});
             if (getAllodds.length < 1) return res.status(400).json({error: "there are no images in seven odds"});
             res.status(200).json({"success": getAllodds});

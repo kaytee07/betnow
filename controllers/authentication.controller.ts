@@ -3,7 +3,9 @@ import { UserModel } from "../models";
 import bcrypt from "bcrypt";
 import { Request, Response } from "express";
 require('dotenv').config();
+import {MySessionData} from "../utils/SessionType";
 import jwt from 'jsonwebtoken';
+
 
 
 class AuthController {
@@ -34,7 +36,9 @@ class AuthController {
 
             if (process.env.JWT_TOKEN) {
                 let token = jwt.sign({ userId: user._id, email: user.email}, process.env.JWT_TOKEN, { expiresIn: '1h'});
-                res.cookie("token", token, { httpOnly: true});
+                var sessionData: MySessionData = req.session as MySessionData;
+                sessionData.accessToken = token;
+                console.log(sessionData);
                 return res.status(200).json({"success": email, "token": token});
             } else {
                 console.error('JWT_TOKEN is not defined in environment variables.');
