@@ -17,11 +17,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(cors());
-app.use(cors({
-    origin: "*",
-    methods: 'GET, POST, PUT, DELETE',
-    allowedHeaders: 'Content-Type,Authorization',
-}));
+app.use(cors());
 app.use(session({
     secret: process.env.SESSION_SECRET || 'hjebjifeunrfnkjhj',
     resave: false,

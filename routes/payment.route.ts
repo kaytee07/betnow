@@ -3,6 +3,8 @@ import { Router } from "express";
 
 const paymentRouter = Router();
 
-paymentRouter.get("/buytwoodds", PaymentController.payForFiveOdds);
+paymentRouter.get("/buyfiveodds", PaymentController.payForFiveOdds);
+paymentRouter.get("/buytwoodds", PaymentController.payForTwoOdds);
+paymentRouter.get("/buysevenodds", PaymentController.payForSevenOdds);
 
 export default paymentRouter;

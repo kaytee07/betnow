@@ -9,9 +9,9 @@ const upload = multer({ dest: 'uploads/' });
 const ticketRouter = Router();
 
 ticketRouter.post("/upload",requireAuth, upload.single('file') ,TicketController.uploadFile);
-ticketRouter.get("/fiveodds", requireAuth, TicketController.getFiveOdds);
-ticketRouter.get("/twoodds", requireAuth, TicketController.getTwoOdds);
-ticketRouter.get("/sevenodds", requireAuth, TicketController.getSevenOdds);
+ticketRouter.get("/fiveodds", TicketController.getFiveOdds);
+ticketRouter.get("/twoodds", TicketController.getTwoOdds);
+ticketRouter.get("/sevenodds", TicketController.getSevenOdds);
 ticketRouter.get("/allodds", requireAuth, TicketController.getAllOdds);
 ticketRouter.delete("/removefiveodds", requireAuth, TicketController.deleteFiveOdds);
 ticketRouter.delete("/removetwoodds", requireAuth, TicketController.deleteTwoOdds);
