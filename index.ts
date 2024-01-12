@@ -2,7 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 import mongooseClient from "./utils/mongoose";
 import redisClient from "./utils/redis";
-import { userRouter, helloRouter, authRouter } from "./routes";
+import { userRouter, helloRouter, authRouter, paymentRouter } from "./routes";
 import cors from "cors";
 import { allow, any } from "joi";
 import ticketRouter from "./routes/ticket.routes";
@@ -34,6 +34,7 @@ app.use("/api", helloRouter);
 app.use("/api", userRouter);
 app.use("/api", authRouter);
 app.use("/api", ticketRouter);
+app.use("/api", paymentRouter);
 
 app.get("/hello", (req: Request, res: Response) => {
     console.log("dog");
