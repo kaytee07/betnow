@@ -18,7 +18,7 @@ class AuthController {
         const { error, value } = userSchema.validate(req.body);
         if (error) {
             return res.status(400).json({"Error": error});
-        } 
+        }  
 
         const { email, password } = value;
 
@@ -36,10 +36,8 @@ class AuthController {
 
             if (process.env.JWT_TOKEN) {
                 let token = jwt.sign({ userId: user._id, email: user.email}, process.env.JWT_TOKEN, { expiresIn: '1h'});
-                var sessionData: MySessionData = req.session as MySessionData;
-                sessionData.accessToken = token;
-                console.log(sessionData);
-                return res.status(200).json({"success": email, "token": token});
+                res.cookie('jwt', token, {httpOnly: true, secure: false});
+                return res.status(200).json({email});
             } else {
                 console.error('JWT_TOKEN is not defined in environment variables.');
             }

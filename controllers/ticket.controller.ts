@@ -9,7 +9,6 @@ class TicketController {
     static async uploadFile (req: Request, res: Response) {
         //const { oddType } = req.body;
         const oddType = req.body.oddType;
-        console.log(oddType);
         try {
             if (req.file && req.file.path){
                 const result = await cloudinary.uploader.upload(req.file.path);

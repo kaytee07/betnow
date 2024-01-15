@@ -7,7 +7,7 @@ class PaymentController {
         var sessionData: MySessionData = req.session as MySessionData;
         let kobo_amount = 50 * 100;
         paystack.transaction.initialize({
-            email: "kaytee@io.com",
+            email: "kayteeofficial07@gmail.com",
             amount: kobo_amount,
             callback_url: "http://localhost:5000/api/fiveodds"
         }).then(function(body: { data: { reference: any; authorization_url: string; }; }) {
