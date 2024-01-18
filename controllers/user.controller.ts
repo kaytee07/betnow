@@ -5,7 +5,12 @@ import Joi from 'joi'
 
 class UserController {
     static async hello(req: Request, res: Response) {
-        return res.status(200).json("Hello World, Welcome to my API");
+        console.log(req.cookies)
+        if(req.cookies.jwt){
+        return res.status(200).json({success: "ok"});
+       } else {
+        return res.status(400).json({error: "user not logged in"})
+       }
      }
 
     static async hashPassword (password: string) {

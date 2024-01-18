@@ -9,6 +9,8 @@ class TicketController {
     static async uploadFile (req: Request, res: Response) {
         //const { oddType } = req.body;
         const oddType = req.body.oddType;
+        console.log("here");
+
         try {
             if (req.file && req.file.path){
                 const result = await cloudinary.uploader.upload(req.file.path);
@@ -39,18 +41,22 @@ class TicketController {
 
     static async getFiveOdds(req: Request, res: Response) {
         const { reference } = req.query;
-        if (reference) {
+        if (reference || req.cookies.jwt) {
             try {
                 const getAllodds = await TicketModel.find({ oddsType: {
                     name: "five odds"
                 }});
                 if (getAllodds.length < 1) return res.status(400).json({error: "there are no images in five odds"});
-                return res.status(200).json({"success": getAllodds});
+                if (reference) {
+                    return res.status(200).json({"success": getAllodds, user: "buyer"});
+                } else {
+                    return res.status(200).json({"success": getAllodds, user: "admin"});
+                }
             } catch (err) {
                 return res.status(400).json({"error": "five odds error"});
             }
         } else {
-            return res.redirect("http://localhost:5173");
+            return res.status(200).json({"fail": "no photos"});
         }
         
     }
@@ -68,14 +74,14 @@ class TicketController {
                 res.status(400).json({"error": err});
             }
         } else {
-            return res.redirect("http://localhost:5173");
+            return res.status(200).json({"fail": "no photos"});
         }
         
     }
 
     static async getSevenOdds(req: Request, res: Response) {
         const { reference } = req.query;
-        if (reference) {
+        if (reference || req.cookies.jwt) {
             try {
                 const getAllodds = await TicketModel.find({ oddsType: {
                     name: "seven odds"
@@ -86,7 +92,7 @@ class TicketController {
                 res.status(400).json({"error": err});
             }
         } else {
-            return res.redirect("http://localhost:5173");
+            return res.status(200).json({"fail": "no photos"});
         }
         
     }

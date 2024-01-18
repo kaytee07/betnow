@@ -4,6 +4,6 @@ import { UserController } from "../controllers";
 const helloRouter = express.Router();
 
 
-helloRouter.get("/", UserController.hello);
+helloRouter.get("/auth", UserController.hello);
 
 export default helloRouter;

@@ -36,8 +36,8 @@ class AuthController {
 
             if (process.env.JWT_TOKEN) {
                 let token = jwt.sign({ userId: user._id, email: user.email}, process.env.JWT_TOKEN, { expiresIn: '1h'});
-                res.cookie('jwt', token, {httpOnly: true, secure: false});
-                return res.status(200).json({email});
+                res.cookie('jwt', token, {httpOnly: true, sameSite:"lax"});
+                return res.send('http://localhost:5173/api/home');
             } else {
                 console.error('JWT_TOKEN is not defined in environment variables.');
             }
@@ -50,11 +50,11 @@ class AuthController {
 
     }
 
-    static async logout(req: Request, res:Response) {
-        res.clearCookie('token', {httpOnly: true});
-        console.log(req.cookies)
-        res.status(200).json({"message": "logout successfully"});
+   static async logout(req: Request, res: Response) {
+        res.clearCookie('jwt', { httpOnly: true });
+        res.status(200).json({ "message": "logout successfully" });
     }
+
 
 }
 

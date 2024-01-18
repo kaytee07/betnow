@@ -4,6 +4,7 @@ import { MySessionData } from "../utils/SessionType";
 
 class PaymentController {
     static async payForFiveOdds (req: Request, res: Response) {
+        console.log("here")
         var sessionData: MySessionData = req.session as MySessionData;
         let kobo_amount = 50 * 100;
         paystack.transaction.initialize({
@@ -12,7 +13,6 @@ class PaymentController {
             callback_url: "http://localhost:5000/api/fiveodds"
         }).then(function(body: { data: { reference: any; authorization_url: string; }; }) {
         //extract the reference
-        console.log(body);
         let reference = body.data.reference
         //create a session variable to store the reference
         sessionData.reference = reference;

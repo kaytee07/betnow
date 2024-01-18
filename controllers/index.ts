@@ -1,6 +1,6 @@
 import UserController from "./user.controller";
 import AuthController from "./authentication.controller";
-import HelloController from "./hello";
+import HelloController from "./hello.controller";
 import TicketController from "./ticket.controller";
 import PaymentController from "./payment.controller";
 

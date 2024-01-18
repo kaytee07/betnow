@@ -22,11 +22,11 @@ app.use(cors({
     credentials: true
 }));
 
-// app.use(session({
-//     secret: process.env.SESSION_SECRET || 'hjebjifeunrfnkjhj',
-//     resave: false,
-//     saveUninitialized: true,
-// }));
+app.use(session({
+    secret: process.env.SESSION_SECRET || 'hjebjifeunrfnkjhj',
+    resave: false,
+    saveUninitialized: true,
+}));
 
 //endpoints
 
