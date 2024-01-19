@@ -5,7 +5,6 @@ import Joi from 'joi'
 
 class UserController {
     static async hello(req: Request, res: Response) {
-        console.log(req.cookies)
         if(req.cookies.jwt){
         return res.status(200).json({success: "ok"});
        } else {
@@ -20,7 +19,6 @@ class UserController {
     }
 
     static async createUser( req: Request, res:Response) {
-        console.log(req.body);
         const userSchema = Joi.object({
             firstName: Joi.string().required(),
             lastName: Joi.string().required(),
@@ -53,7 +51,6 @@ class UserController {
 
         user.save()
         .then(()=> {
-            console.log(`${user.firstName}`)
             return res.status(200).json({firstName, lastName, email});
         }).catch((error) => {
             console.error(error);
@@ -74,7 +71,6 @@ class UserController {
         const { email } = req.body;
         try {
             const user = await UserModel.deleteOne({email});
-            console.log(user);
             return res.status(200).json({"sucessful": `deleted ${user}`})
         } catch (err) {
             return res.status(400).json({"Error": err});

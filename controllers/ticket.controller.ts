@@ -9,7 +9,6 @@ class TicketController {
     static async uploadFile (req: Request, res: Response) {
         //const { oddType } = req.body;
         const oddType = req.body.oddType;
-        console.log("here");
 
         try {
             if (req.file && req.file.path){
@@ -66,12 +65,16 @@ class TicketController {
         if (reference) {
             try {
                 const getAllodds = await TicketModel.find({ oddsType: {
-                name: "two odds"
+                    name: "two odds"
                 }});
                 if (getAllodds.length < 1) return res.status(400).json({error: "there are no images in two odds"});
-                res.status(200).json({"success": getAllodds});
+                if (reference) {
+                    return res.status(200).json({"success": getAllodds, user: "buyer"});
+                } else {
+                    return res.status(200).json({"success": getAllodds, user: "admin"});
+                }
             } catch (err) {
-                res.status(400).json({"error": err});
+                return res.status(400).json({"error": "two odds error"});
             }
         } else {
             return res.status(200).json({"fail": "no photos"});
@@ -87,9 +90,13 @@ class TicketController {
                     name: "seven odds"
                 }});
                 if (getAllodds.length < 1) return res.status(400).json({error: "there are no images in seven odds"});
-                res.status(200).json({"success": getAllodds});
+                if (reference) {
+                    return res.status(200).json({"success": getAllodds, user: "buyer"});
+                } else {
+                    return res.status(200).json({"success": getAllodds, user: "admin"});
+                }
             } catch (err) {
-                res.status(400).json({"error": err});
+                return res.status(400).json({"error": "seven odds error"});
             }
         } else {
             return res.status(200).json({"fail": "no photos"});
@@ -98,38 +105,32 @@ class TicketController {
     }
 
     static async deleteFiveOdds(req: Request, res: Response) {
-        const {imageUrl} = req.body;
+        const { url } = req.body;
         try {
-            const deleteOdd = await TicketModel.deleteOne({image: {
-                imageUrl
-            }})
-            res.status(200).json({"sucess": deleteOdd})
+            const deleteOdd = await TicketModel.deleteOne({ 'image.imageUrl': url, 'oddsType.name': 'five odds' });
+            res.status(200).json({ success: deleteOdd });
         } catch (err) {
-            res.status(400).json({error :err})
+            res.status(400).json({ error: err  });
         }
     }
 
     static async deleteTwoOdds(req: Request, res: Response) {
-        const {imageUrl} = req.body;
+        const { url } = req.body;
         try {
-            const deleteOdd = await TicketModel.deleteOne({image: {
-                imageUrl
-            }});
-            res.status(200).json({"sucess": deleteOdd});
+            const deleteOdd = await TicketModel.deleteOne({ 'image.imageUrl': url, 'oddsType.name': 'two odds' });
+            res.status(200).json({ success: deleteOdd });
         } catch (err) {
-            res.status(400).json({error: err});
+            res.status(400).json({ error: err  });
         }
     }
 
     static async deleteSevenOdds(req: Request, res: Response) {
-        const {imageUrl} = req.body;
+        const { url } = req.body;
         try {
-            const deleteOdd = await TicketModel.deleteOne({image: {
-                imageUrl
-            }});
-            res.status(200).json({"sucess": deleteOdd});
+            const deleteOdd = await TicketModel.deleteOne({ 'image.imageUrl': url, 'oddsType.name': 'seven odds' });
+            res.status(200).json({ success: deleteOdd });
         } catch (err) {
-            res.status(400).json({"error": err});
+            res.status(400).json({ error: err  });
         }
     }
 
