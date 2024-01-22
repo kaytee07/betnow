@@ -1,10 +1,20 @@
 const paystack = require("paystack")(process.env.PAYSTACK_SECRET);
 import {Request, Response} from "express";
 import { MySessionData } from "../utils/SessionType";
+import { TicketModel } from "../models";
 
 class PaymentController {
     static async payForFiveOdds (req: Request, res: Response) {
         var sessionData: MySessionData = req.session as MySessionData;
+        try {
+            const getAllodds = await TicketModel.find({ oddsType: {
+                    name: "five odds"
+                }});
+            if (getAllodds.length === 0) return res.json(400).json({error: "no odds available"})
+        } catch (err) {
+            console.error(err)
+        }
+        
         let kobo_amount = 50 * 100;
         paystack.transaction.initialize({
             email: "kayteeofficial07@gmail.com",
@@ -25,6 +35,9 @@ class PaymentController {
 
     static async payForTwoOdds (req: Request, res: Response) {
         var sessionData: MySessionData = req.session as MySessionData;
+        const getAllodds = await TicketModel.find({ oddsType: {
+                    name: "two odds"
+                }});
         let kobo_amount = 30 * 100;
         paystack.transaction.initialize({
             email: "kaytee@io.com",
@@ -45,6 +58,9 @@ class PaymentController {
 
     static async payForSevenOdds (req: Request, res: Response) {
         var sessionData: MySessionData = req.session as MySessionData;
+        const getAllodds = await TicketModel.find({ oddsType: {
+                    name: "seven odds"
+                }});
         let kobo_amount = 70 * 100;
         paystack.transaction.initialize({
             email: "kaytee@io.com",

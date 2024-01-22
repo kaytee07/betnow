@@ -45,7 +45,7 @@ class TicketController {
                 const getAllodds = await TicketModel.find({ oddsType: {
                     name: "five odds"
                 }});
-                if (getAllodds.length < 1) return res.status(400).json({error: "there are no images in five odds"});
+                // if (getAllodds.length < 1) return res.status(400).json({error: "there are no images in five odds"});
                 if (reference) {
                     return res.status(200).json({"success": getAllodds, user: "buyer"});
                 } else {
@@ -67,7 +67,7 @@ class TicketController {
                 const getAllodds = await TicketModel.find({ oddsType: {
                     name: "two odds"
                 }});
-                if (getAllodds.length < 1) return res.status(400).json({error: "there are no images in two odds"});
+                // if (getAllodds.length < 1) return res.status(400).json({error: "there are no images in two odds"});
                 if (reference) {
                     return res.status(200).json({"success": getAllodds, user: "buyer"});
                 } else {
@@ -89,7 +89,7 @@ class TicketController {
                 const getAllodds = await TicketModel.find({ oddsType: {
                     name: "seven odds"
                 }});
-                if (getAllodds.length < 1) return res.status(400).json({error: "there are no images in seven odds"});
+                // if (getAllodds.length < 1) return res.status(400).json({error: "there are no images in seven odds"});
                 if (reference) {
                     return res.status(200).json({"success": getAllodds, user: "buyer"});
                 } else {
