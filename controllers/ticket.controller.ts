@@ -3,7 +3,7 @@ import { Request, Response } from "express";
 import { TicketModel } from "../models";
 import multer from "multer";
 import { cloudinary } from "../middlewares";
-// const upload = multer({ storage });
+import { MySessionData } from "../utils/SessionType";
 
 class TicketController {
     static async uploadFile (req: Request, res: Response) {
@@ -39,7 +39,7 @@ class TicketController {
     }
 
     static async getFiveOdds(req: Request, res: Response) {
-        const { reference } = req.query;
+        const { reference } = req.query
         if (reference || req.cookies.jwt) {
             try {
                 const getAllodds = await TicketModel.find({ oddsType: {
@@ -61,42 +61,41 @@ class TicketController {
     }
 
     static async getTwoOdds(req: Request, res:Response) {
-        const { reference } = req.query;
-        if (reference) {
+        const { reference } =   req.session as MySessionData;
+        if (reference|| req.cookies.jwt) {
             try {
                 const getAllodds = await TicketModel.find({ oddsType: {
                     name: "two odds"
                 }});
-                // if (getAllodds.length < 1) return res.status(400).json({error: "there are no images in two odds"});
+                // if (getAllodds.length < 1) return res.status(400).json({error: "there are no images in five odds"});
                 if (reference) {
                     return res.status(200).json({"success": getAllodds, user: "buyer"});
                 } else {
                     return res.status(200).json({"success": getAllodds, user: "admin"});
                 }
             } catch (err) {
-                return res.status(400).json({"error": "two odds error"});
+                return res.status(400).json({"error": "five odds error"});
             }
         } else {
             return res.status(200).json({"fail": "no photos"});
         }
-        
     }
 
     static async getSevenOdds(req: Request, res: Response) {
-        const { reference } = req.query;
+        const { reference } = req.session as MySessionData;
         if (reference || req.cookies.jwt) {
             try {
                 const getAllodds = await TicketModel.find({ oddsType: {
                     name: "seven odds"
                 }});
-                // if (getAllodds.length < 1) return res.status(400).json({error: "there are no images in seven odds"});
+                // if (getAllodds.length < 1) return res.status(400).json({error: "there are no images in five odds"});
                 if (reference) {
                     return res.status(200).json({"success": getAllodds, user: "buyer"});
                 } else {
                     return res.status(200).json({"success": getAllodds, user: "admin"});
                 }
             } catch (err) {
-                return res.status(400).json({"error": "seven odds error"});
+                return res.status(400).json({"error": "five odds error"});
             }
         } else {
             return res.status(200).json({"fail": "no photos"});

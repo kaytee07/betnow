@@ -31,15 +31,7 @@ app.use(session({
 //endpoints
 
 
-app.get('/', (req: Request, res: Response) => {
-  // Retrieve the value of the 'jwt' cookie
-  const jwtCookieValue = req.cookies;
 
-  // Do something with the cookie value
-  console.log('Value of jwt cookie:', jwtCookieValue);
-
-  res.send('JWT cookie retrieved from backend!');
-});
 
 app.use("/api", helloRouter);
 app.use("/api", userRouter);
@@ -47,10 +39,6 @@ app.use("/api", authRouter);
 app.use("/api", ticketRouter);
 app.use("/api", paymentRouter);
 
-app.get("/hello", (req: Request, res: Response) => {
-    res.cookie('authToken', "yoooooo", {httpOnly: true, secure: false});
-    return res.json({"set": "set"})
-});
 
 app.listen(PORT, async () => {
     console.log(`Server started on ${PORT}`);
