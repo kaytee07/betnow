@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 
 
+//mongodb://localhost/betnow
 class Mongoose {
      private isConnected: boolean;
 
@@ -9,7 +10,7 @@ class Mongoose {
     }
 
     async isAlive(): Promise<boolean> {
-        await mongoose.connect("mongodb://localhost/betnow",).then(() => {
+        await mongoose.connect("mongodb+srv://kofitaylor07:UPsBXb5scIgRJr4q@cluster0.lroxybh.mongodb.net/",).then(() => {
                 this.isConnected = true
             }).catch((error: string) => {
                 console.error(error)

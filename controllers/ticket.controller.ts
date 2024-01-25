@@ -1,5 +1,5 @@
 import Joi from "joi";
-import { Request, Response } from "express";
+import { Request, Response, query } from "express";
 import { TicketModel } from "../models";
 import multer from "multer";
 import { cloudinary } from "../middlewares";
@@ -46,10 +46,10 @@ class TicketController {
                     name: "five odds"
                 }});
                 // if (getAllodds.length < 1) return res.status(400).json({error: "there are no images in five odds"});
-                if (reference) {
-                    return res.status(200).json({"success": getAllodds, user: "buyer"});
-                } else {
+                if (req.cookies.jwt) {
                     return res.status(200).json({"success": getAllodds, user: "admin"});
+                } else {
+                    return res.status(200).json({"success": getAllodds, user: "buyer"});
                 }
             } catch (err) {
                 return res.status(400).json({"error": "five odds error"});
@@ -61,17 +61,17 @@ class TicketController {
     }
 
     static async getTwoOdds(req: Request, res:Response) {
-        const { reference } =   req.session as MySessionData;
+        const { reference } =   req.query;
         if (reference|| req.cookies.jwt) {
             try {
                 const getAllodds = await TicketModel.find({ oddsType: {
                     name: "two odds"
                 }});
                 // if (getAllodds.length < 1) return res.status(400).json({error: "there are no images in five odds"});
-                if (reference) {
-                    return res.status(200).json({"success": getAllodds, user: "buyer"});
-                } else {
+                if (req.cookies.jwt) {
                     return res.status(200).json({"success": getAllodds, user: "admin"});
+                } else {
+                    return res.status(200).json({"success": getAllodds, user: "buyer"});
                 }
             } catch (err) {
                 return res.status(400).json({"error": "five odds error"});
@@ -82,17 +82,17 @@ class TicketController {
     }
 
     static async getSevenOdds(req: Request, res: Response) {
-        const { reference } = req.session as MySessionData;
+        const { reference } =   req.query;;
         if (reference || req.cookies.jwt) {
             try {
                 const getAllodds = await TicketModel.find({ oddsType: {
                     name: "seven odds"
                 }});
                 // if (getAllodds.length < 1) return res.status(400).json({error: "there are no images in five odds"});
-                if (reference) {
-                    return res.status(200).json({"success": getAllodds, user: "buyer"});
-                } else {
+                if (req.cookies.jwt) {
                     return res.status(200).json({"success": getAllodds, user: "admin"});
+                } else {
+                    return res.status(200).json({"success": getAllodds, user: "buyer"});
                 }
             } catch (err) {
                 return res.status(400).json({"error": "five odds error"});

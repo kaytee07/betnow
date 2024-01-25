@@ -46,7 +46,7 @@ class PaymentController {
             if (getAllodds.length === 0) {
                 return res.status(200).json({message: "no photos available"});
             } else {
-                let kobo_amount = 50 * 100;
+                let kobo_amount = 30 * 100;
                 paystack.transaction.initialize({
                     email: "kayteeofficial07@gmail.com",
                     amount: kobo_amount,
@@ -75,7 +75,6 @@ class PaymentController {
         const getAllodds = await TicketModel.find({ oddsType: {
                     name: "seven odds"
                 }});
-        console.log(getAllodds)
         if (getAllodds.length === 0) {
             return res.status(200).json({message: "no photos available"});
         } else {
@@ -87,7 +86,6 @@ class PaymentController {
              }).then(function(body: { data: { reference: any; authorization_url: string; }; }) {
                  //extract the reference
                 let reference = body.data.reference
-                console.log(reference)
                 //create a session variable to store the reference
                 sessionData.reference = reference;
                 //redirect the user to the paystack payment page
