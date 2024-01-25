@@ -37,7 +37,7 @@ class AuthController {
             if (process.env.JWT_TOKEN) {
                 let token = jwt.sign({ userId: user._id, email: user.email}, process.env.JWT_TOKEN, { expiresIn: '1h'});
                 res.cookie('jwt', token, {httpOnly: true, sameSite:"lax"});
-                return res.send('https://www.bettnow.org//api/home');
+                return res.send('https://www.bettnow.org/api/home');
             } else {
                 console.error('JWT_TOKEN is not defined in environment variables.');
             }
