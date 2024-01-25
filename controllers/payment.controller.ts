@@ -17,7 +17,7 @@ class PaymentController {
                 paystack.transaction.initialize({
                     email: "kayteeofficial07@gmail.com",
                     amount: kobo_amount,
-                    callback_url: "http://localhost:5173/api/fiveodds"
+                    callback_url: "https://www.bettnow.org/api/fiveodds"
                 }).then(function(body: { data: { reference: any; authorization_url: string; }; }) {
                     //extract the reference
                     let reference = body.data.reference
@@ -50,7 +50,7 @@ class PaymentController {
                 paystack.transaction.initialize({
                     email: "kayteeofficial07@gmail.com",
                     amount: kobo_amount,
-                    callback_url: "http://localhost:5173/api/twoodds"
+                    callback_url: "https://www.bettnow.org/api/twoodds"
                 }).then(function(body: { data: { reference: any; authorization_url: string; }; }) {
                     //extract the reference
                     let reference = body.data.reference
@@ -82,7 +82,7 @@ class PaymentController {
             paystack.transaction.initialize({
             email: "kaytee@io.com",
             amount: kobo_amount,
-            callback_url: "http://localhost:5173/api/sevenodds"
+            callback_url: "https://www.bettnow.org/api/sevenodds"
              }).then(function(body: { data: { reference: any; authorization_url: string; }; }) {
                  //extract the reference
                 let reference = body.data.reference
