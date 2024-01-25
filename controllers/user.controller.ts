@@ -6,6 +6,7 @@ import Joi from 'joi'
 class UserController {
     static async hello(req: Request, res: Response) {
         if(req.cookies.jwt){
+        console.log(req.cookies)
         return res.status(200).json({success: "ok"});
        } else {
         return res.status(400).json({error: "user not logged in"})
