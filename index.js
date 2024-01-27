@@ -16,7 +16,7 @@ app.use(cookieParser());
 //app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cors({
-    origin: "http://www.bettnow.org",
+    origin: "https://www.bettnow.org",
     methods: 'GET, POST, PUT, DELETE',
     allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true
