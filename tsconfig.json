@@ -1,9 +1,18 @@
 {
-    "compilerOptions": {
-      "target": "es2015",
-      "module": "es2015",
-      "moduleResolution": "node",
-      "esModuleInterop": true
-    }
-  }
-  
+  "compilerOptions": {
+    "target": "es5",
+    "module": "commonjs",
+    "outDir": "./dist",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+  },
+  "include": [
+    "**/*.ts"    // Include all TypeScript files in the project
+  ],
+  "exclude": [
+    "node_modules"  // Exclude node_modules
+  ]
+}
