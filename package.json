@@ -4,8 +4,8 @@
   "description": "bet prediction site",
   "main": "index.ts",
   "scripts": {
-    "test": "jest",
-    "start": "node index.ts"
+    "build": "tsc",
+    "start": "npm run build && node index.js"
   },
   "type": "module",
   "repository": {
