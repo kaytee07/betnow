@@ -8,7 +8,6 @@
     "build": "tsc",
     "test": "jest"
   },
-  "type": "module",
   "repository": {
     "type": "git",
     "url": "betnow"
