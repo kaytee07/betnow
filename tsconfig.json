@@ -3,11 +3,7 @@
     "module": "ES2022",
     "target": "ES2022",
     "sourceMap": true,
-    "outDir": "./dist",
-    "strict": true,
     "esModuleInterop": true,
-    "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
   },
   "include": [
     "**/*.ts"    // Include all TypeScript files in the project
