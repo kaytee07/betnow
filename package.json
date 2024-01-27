@@ -2,7 +2,7 @@
   "name": "betnow",
   "version": "1.0.0",
   "description": "bet prediction site",
-  "main": "index.ts",
+  "main": "index.js",
   "type": "module",
   "scripts": {
     "test": "jest",
