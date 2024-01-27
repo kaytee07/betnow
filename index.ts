@@ -30,7 +30,7 @@ app.use(session({
 
 //endpoints
 app.get("/", (req: Request, res:Response) => {
-    console.log("hello");
+    res.send("hello");
 })
 
 
