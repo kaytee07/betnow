@@ -4,7 +4,7 @@
   "description": "bet prediction site",
   "main": "index.ts",
   "scripts": {
-    "start": "node index.ts"
+    "build": "node index.ts"
   },
   "type": "module",
   "repository": {
