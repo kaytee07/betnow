@@ -86,6 +86,7 @@ class PaymentController {
              }).then(function(body: { data: { reference: any; authorization_url: string; }; }) {
                  //extract the reference
                 let reference = body.data.reference
+                console.log(reference)
                 //create a session variable to store the reference
                 sessionData.reference = reference;
                 //redirect the user to the paystack payment page
