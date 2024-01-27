@@ -3,9 +3,10 @@
   "version": "1.0.0",
   "description": "bet prediction site",
   "main": "index.ts",
+  "type": "module",
   "scripts": {
     "test": "jest",
-    "dev": "nodemon index.ts"
+    "dev": "nodemon index.js"
   },
   "repository": {
     "type": "git",

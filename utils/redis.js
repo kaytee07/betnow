@@ -1,10 +1,10 @@
 import { createClient } from 'redis';
 
 class RedisClient {
-    private client: any
+
     constructor () {
         this.client = createClient();
-        this.client.on('error', (error: string) => console.log('Redis client error', error));
+        this.client.on('error', (error) => console.log('Redis client error', error));
         this.client.isconnected = true;
     }
 
@@ -12,8 +12,8 @@ class RedisClient {
         return this.client.isconnected
     }
 
-    async get(key: string) {
-        return await this.client.get(key, (err: string, reply: string) => {
+    async get(key) {
+        return await this.client.get(key, (err, reply) => {
             if (err) {
                 console.error(err);
                 return;
@@ -22,13 +22,13 @@ class RedisClient {
         })
     }
 
-    async set(key: string, value: string, duration: number) {
-        await this.client.setex(key, duration, value, (err: string, reply: string) => {
+    async set(key, value, duration) {
+        await this.client.setex(key, duration, value, (err, reply) => {
             if (err) console.error(err);
         })
     }
-    async del(key: string) {
-        await this.client.del(key, (err: string, reply: string) => {
+    async del(key) {
+        await this.client.del(key, (err, reply) => {
             if (err) console.error(err);
         })
     }

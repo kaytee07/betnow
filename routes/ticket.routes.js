@@ -1,7 +1,7 @@
 import {Router} from 'express';
-import { TicketController } from '../controllers';
+import TicketController from '../controllers/ticket.controller.js';
 import multer from "multer";
-import requireAuth from '../middlewares/authorization.middleware';
+import requireAuth from '../middlewares/authorization.middleware.js';
 const upload = multer({ dest: 'uploads/' });
 //import { storage } from "../middlewares";
 //const upload = multer({ storage });

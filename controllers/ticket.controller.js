@@ -1,13 +1,9 @@
-import Joi from "joi";
-import { Request, Response, query } from "express";
-import { TicketModel } from "../models";
+import TicketModel from "../models/ticket.model.js";
 import multer from "multer";
-import { cloudinary } from "../middlewares";
-import { MySessionData } from "../utils/SessionType";
+import { cloudinary } from "../middlewares/cloudinary.middleware.js";
 
 class TicketController {
-    static async uploadFile (req: Request, res: Response) {
-        //const { oddType } = req.body;
+    static async uploadFile (req, res) {
         const oddType = req.body.oddType;
 
         try {
@@ -38,7 +34,7 @@ class TicketController {
         }
     }
 
-    static async getFiveOdds(req: Request, res: Response) {
+    static async getFiveOdds(req, res) {
         const { reference } = req.query
         if (reference || req.cookies.jwt) {
             try {
@@ -60,7 +56,7 @@ class TicketController {
         
     }
 
-    static async getTwoOdds(req: Request, res:Response) {
+    static async getTwoOdds(req, res) {
         const { reference } =   req.query;
         if (reference|| req.cookies.jwt) {
             try {
@@ -81,7 +77,7 @@ class TicketController {
         }
     }
 
-    static async getSevenOdds(req: Request, res: Response) {
+    static async getSevenOdds(req, res) {
         const { reference } =   req.query;;
         if (reference || req.cookies.jwt) {
             try {
@@ -103,7 +99,7 @@ class TicketController {
         
     }
 
-    static async deleteFiveOdds(req: Request, res: Response) {
+    static async deleteFiveOdds(req, res) {
         const { url } = req.body;
         try {
             const deleteOdd = await TicketModel.deleteOne({ 'image.imageUrl': url, 'oddsType.name': 'five odds' });
@@ -113,7 +109,7 @@ class TicketController {
         }
     }
 
-    static async deleteTwoOdds(req: Request, res: Response) {
+    static async deleteTwoOdds(req, res) {
         const { url } = req.body;
         try {
             const deleteOdd = await TicketModel.deleteOne({ 'image.imageUrl': url, 'oddsType.name': 'two odds' });
@@ -123,7 +119,7 @@ class TicketController {
         }
     }
 
-    static async deleteSevenOdds(req: Request, res: Response) {
+    static async deleteSevenOdds(req, res) {
         const { url } = req.body;
         try {
             const deleteOdd = await TicketModel.deleteOne({ 'image.imageUrl': url, 'oddsType.name': 'seven odds' });
@@ -133,7 +129,7 @@ class TicketController {
         }
     }
 
-    static async getAllOdds (req: Request, res: Response) {
+    static async getAllOdds (req, res) {
         try {
             const allOdds = await TicketModel.find();
             res.status(200).json({"success": allOdds});

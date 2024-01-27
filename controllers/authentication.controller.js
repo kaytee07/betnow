@@ -1,15 +1,14 @@
 import Joi from "joi";
-import { UserModel } from "../models";
+import UserModel from "../models/user.model.js";
 import bcrypt from "bcrypt";
-import { Request, Response } from "express";
-require('dotenv').config();
-import {MySessionData} from "../utils/SessionType";
+import { config } from "dotenv";
 import jwt from 'jsonwebtoken';
+config()
 
 
 
 class AuthController {
-    static async login (req: Request, res: Response) {
+    static async login (req, res) {
         const userSchema = Joi.object({
             email: Joi.string().required().email(),
             password: Joi.string().required()
@@ -52,7 +51,7 @@ class AuthController {
 
     }
 
-   static async logout(req: Request, res: Response) {
+   static async logout(req, res) {
         res.clearCookie('jwt', { httpOnly: true });
         res.status(200).json({ "message": "logout successfully" });
     }

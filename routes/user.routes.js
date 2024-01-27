@@ -1,8 +1,8 @@
 import express from 'express';
-import { UserController } from '../controllers';
+import UserController from '../controllers/user.controller.js';
 
 const UserRouter = express.Router();
-import requireAuth from '../middlewares/authorization.middleware';
+// import requireAuth from '../middlewares/authorization.middleware';
 
 UserRouter.post("/signup", UserController.createUser);
 UserRouter.get("/allusers", UserController.getAllUsers);

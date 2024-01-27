@@ -1,11 +1,9 @@
-const paystack = require("paystack")(process.env.PAYSTACK_SECRET);
-import {Request, Response} from "express";
-import { MySessionData } from "../utils/SessionType";
-import { TicketModel } from "../models";
+import paystack from "paystack";
+const paystackInstance = paystack(process.env.PAYSTACK_SECRET);
+import TicketModel from "../models/ticket.model.js";
 
 class PaymentController {
-    static async payForFiveOdds (req: Request, res: Response) {
-        var sessionData: MySessionData = req.session as MySessionData;
+    static async payForFiveOdds (req, res) {
         try {
             const getAllodds = await TicketModel.find({ oddsType: {
                     name: "five odds"
@@ -14,18 +12,18 @@ class PaymentController {
                 return res.status(200).json({message: "no photos available"});
             } else {
                 let kobo_amount = 50 * 100;
-                paystack.transaction.initialize({
+                paystackInstance.transaction.initialize({
                     email: "kayteeofficial07@gmail.com",
                     amount: kobo_amount,
                     callback_url: "https://www.bettnow.org/api/fiveodds"
-                }).then(function(body: { data: { reference: any; authorization_url: string; }; }) {
+                }).then(function(body) {
                     //extract the reference
                     let reference = body.data.reference
                     //create a session variable to store the reference
-                    sessionData.reference = reference;
+                    req.session.reference = reference
                     //redirect the user to the paystack payment page
                     return res.status(200).json({"authorization_url":body.data.authorization_url});
-                }).catch(function(error: any) {
+                }).catch(function(error) {
                 console.log(error)
                 res.status(400).json({"error": error});
                 });
@@ -37,8 +35,7 @@ class PaymentController {
         
     }
 
-    static async payForTwoOdds (req: Request, res: Response) {
-         var sessionData: MySessionData = req.session as MySessionData;
+    static async payForTwoOdds (req, res) {
         try {
             const getAllodds = await TicketModel.find({ oddsType: {
                     name: "two odds"
@@ -47,18 +44,18 @@ class PaymentController {
                 return res.status(200).json({message: "no photos available"});
             } else {
                 let kobo_amount = 30 * 100;
-                paystack.transaction.initialize({
+                paystackInstance.transaction.initialize({
                     email: "kayteeofficial07@gmail.com",
                     amount: kobo_amount,
                     callback_url: "https://www.bettnow.org/api/twoodds"
-                }).then(function(body: { data: { reference: any; authorization_url: string; }; }) {
+                }).then(function(body) {
                     //extract the reference
                     let reference = body.data.reference
                     //create a session variable to store the reference
-                    sessionData.reference = reference;
+                    req.session.reference = reference;
                     //redirect the user to the paystack payment page
                     return res.status(200).json({"authorization_url":body.data.authorization_url});
-                }).catch(function(error: any) {
+                }).catch(function(error) {
                 console.log(error)
                 res.status(400).json({"error": error});
                 });
@@ -70,8 +67,7 @@ class PaymentController {
         
     }
 
-    static async payForSevenOdds (req: Request, res: Response) {
-        var sessionData: MySessionData = req.session as MySessionData;
+    static async payForSevenOdds (req, res) {
         const getAllodds = await TicketModel.find({ oddsType: {
                     name: "seven odds"
                 }});
@@ -79,18 +75,18 @@ class PaymentController {
             return res.status(200).json({message: "no photos available"});
         } else {
             let kobo_amount = 70 * 100;
-            paystack.transaction.initialize({
+            paystackInstance.transaction.initialize({
             email: "kaytee@io.com",
             amount: kobo_amount,
-            callback_url: "https://www.bettnow.org/api/sevenodds"
-             }).then(function(body: { data: { reference: any; authorization_url: string; }; }) {
+            callback_url: "http://localhost:5173/api/sevenodds"
+             }).then(function(body) {
                  //extract the reference
                 let reference = body.data.reference
                 //create a session variable to store the reference
-                sessionData.reference = reference;
+                req.session.reference = reference
                 //redirect the user to the paystack payment page
                   return res.status(200).json({"authorization_url":body.data.authorization_url});
-	          }).catch(function(error: any) {
+	          }).catch(function(error) {
                  console.log(error)
 		        res.status(400).json({"error": error});
 	         });

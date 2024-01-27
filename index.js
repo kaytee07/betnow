@@ -1,10 +1,10 @@
-import express, {Request, Response} from 'express';
-const bodyParser = require('body-parser');
-import mongooseClient from "./utils/mongoose";
-import redisClient from "./utils/redis";
-import { userRouter, helloRouter, authRouter, paymentRouter } from "./routes";
+import bodyParser from 'body-parser';
+import express from "express"
+import mongooseClient from "./utils/mongoose.js";
+import redisClient from "./utils/redis.js";
+import { userRouter, helloRouter, authRouter, paymentRouter } from "./routes/index.js";
 import cors from "cors";
-import ticketRouter from "./routes/ticket.routes";
+import ticketRouter from "./routes/ticket.routes.js";
 import session from "express-session"
 import cookieParser from 'cookie-parser';
 
@@ -16,7 +16,7 @@ app.use(cookieParser());
 //app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cors({
-    origin: "https://www.bettnow.org",
+    origin: "http://localhost:5173",
     methods: 'GET, POST, PUT, DELETE',
     allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true
@@ -29,7 +29,7 @@ app.use(session({
 }));
 
 //endpoints
-app.get("/", (req: Request, res:Response) => {
+app.get("/", (req, res) => {
     console.log(req.cookies.jwt)
 })
 

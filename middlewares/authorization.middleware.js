@@ -1,14 +1,13 @@
-import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
-import { MySessionData } from '../utils/SessionType';
-require('dotenv').config();
+import dotenv from 'dotenv';
+dotenv.config();
 
 
-const requireAuth = (req: Request, res: Response, next: NextFunction) => {
+const requireAuth = (req, res, next) => {
     const token = req.cookies.jwt;
     if (token) {
         if (process.env.JWT_TOKEN){
-            jwt.verify(token, process.env.JWT_TOKEN, (error: any, _decodedToken: any) => {
+            jwt.verify(token, process.env.JWT_TOKEN, (error, _decodedToken) => {
                 if (error) {
                     return res.status(401).json({ error: 'Invalid token' });
                 } else {

@@ -1,10 +1,9 @@
-import { Request, Response } from 'express'
-import { UserModel } from '../models'
+import UserModel from '../models/user.model.js'
 import bcrypt from 'bcrypt'
 import Joi from 'joi'
 
 class UserController {
-    static async hello(req: Request, res: Response) {
+    static async hello(req, res) {
         if(req.cookies.jwt){
         console.log(req.cookies)
         return res.status(200).json({success: "ok"});
@@ -13,13 +12,13 @@ class UserController {
        }
      }
 
-    static async hashPassword (password: string) {
+    static async hashPassword (password) {
         const salt = await bcrypt.genSalt(10);
         const hashPassword = await bcrypt.hash(password, salt);
         return hashPassword;
     }
 
-    static async createUser( req: Request, res:Response) {
+    static async createUser( req, res) {
         const userSchema = Joi.object({
             firstName: Joi.string().required(),
             lastName: Joi.string().required(),
@@ -58,7 +57,7 @@ class UserController {
         })
     }
 
-    static async getAllUsers(req: Request, res:Response) {
+    static async getAllUsers(req, res) {
         try {
             const numOfUsers = await UserModel.find()
             return res.status(200).json({"number_of_users": numOfUsers})
@@ -68,7 +67,7 @@ class UserController {
         
     }
 
-    static async deleteUser(req: Request, res: Response) {
+    static async deleteUser(req, res) {
         const { email } = req.body;
         try {
             const user = await UserModel.deleteOne({email});
@@ -79,7 +78,7 @@ class UserController {
         
     }
 
-    static async getUser(req: Request, res: Response) {
+    static async getUser(req, res) {
         const { email } = req.body;
         try {
             const user = await UserModel.findOne({email});
@@ -89,7 +88,7 @@ class UserController {
         }
     }
 
-    static async getNumberOfUsers(req: Request, res: Response) {
+    static async getNumberOfUsers(req, res) {
         try {
             const numOfUsers = await UserModel.countDocuments({});
             return res.status(200).json({"sucessful": numOfUsers});
