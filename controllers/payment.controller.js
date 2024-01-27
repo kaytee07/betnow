@@ -78,7 +78,7 @@ class PaymentController {
             paystackInstance.transaction.initialize({
             email: "kaytee@io.com",
             amount: kobo_amount,
-            callback_url: "http://localhost:5173/api/sevenodds"
+            callback_url: "https://www.bettnow.org/api/sevenodds"
              }).then(function(body) {
                  //extract the reference
                 let reference = body.data.reference
