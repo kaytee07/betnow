@@ -13,7 +13,7 @@ class PaymentController {
             } else {
                 let kobo_amount = 50 * 100;
                 paystackInstance.transaction.initialize({
-                    email: "kayteeofficial07@gmail.com",
+                    email: "bettnow2@gmail.com",
                     amount: kobo_amount,
                     callback_url: "https://www.bettnow.org/api/fiveodds"
                 }).then(function(body) {
@@ -45,7 +45,7 @@ class PaymentController {
             } else {
                 let kobo_amount = 30 * 100;
                 paystackInstance.transaction.initialize({
-                    email: "kayteeofficial07@gmail.com",
+                    email: "bettnow2@gmail.com",
                     amount: kobo_amount,
                     callback_url: "https://www.bettnow.org/api/twoodds"
                 }).then(function(body) {
@@ -76,7 +76,7 @@ class PaymentController {
         } else {
             let kobo_amount = 70 * 100;
             paystackInstance.transaction.initialize({
-            email: "kaytee@io.com",
+            email: "bettnow2@gmail.com",
             amount: kobo_amount,
             callback_url: "https://www.bettnow.org/api/sevenodds"
              }).then(function(body) {
